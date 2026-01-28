@@ -29,7 +29,7 @@ export default function FilosofiDesa() {
         <div className="bg-white/80 backdrop-blur-lg rounded-3xl p-8 md:p-12 shadow-2xl border-2 border-teal-100">
           <div className="max-w-4xl mx-auto text-center">
             <p className="text-xl md:text-2xl text-gray-800 leading-relaxed font-medium italic mb-8">
-              "{t('filosofi.quote')}"
+              &quot;{t('filosofi.quote')}&quot;
             </p>
             <div className="h-px bg-gradient-to-r from-transparent via-teal-300 to-transparent mb-8"></div>
             <p className="text-lg text-gray-700 leading-relaxed">

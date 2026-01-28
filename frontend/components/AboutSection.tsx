@@ -77,7 +77,7 @@ export default function AboutSection() {
             <div className="flex items-center gap-4 pt-6">
               <div className="flex-1 h-0.5 bg-gradient-to-r from-transparent via-teal-400 to-transparent"></div>
               <p className="text-navy-700 font-bold italic text-lg px-4 py-2 bg-white/60 backdrop-blur-sm rounded-full shadow-3d">
-                "{t('about.quote')}"
+                &quot;{t('about.quote')}&quot;
               </p>
               <div className="flex-1 h-0.5 bg-gradient-to-r from-transparent via-teal-400 to-transparent"></div>
             </div>
