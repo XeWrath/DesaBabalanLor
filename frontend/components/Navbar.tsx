@@ -112,7 +112,7 @@ export default function Navbar() {
             </Link>
 
             {/* Navigation Links */}
-            <div className="flex items-center space-x-4 md:space-x-6">
+            <div className="flex items-center space-x-3 md:space-x-6 text-xs sm:text-sm md:text-base">
               <Link
                 href="/"
                 className={`px-2 py-2 font-semibold transition-all duration-200 relative ${
