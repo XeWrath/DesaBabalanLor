@@ -3,19 +3,23 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import LanguageSwitcher from './LanguageSwitcher'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function Navbar() {
   const [isVisible, setIsVisible] = useState(false)
   const pathname = usePathname()
+  const { t } = useLanguage()
 
   useEffect(() => {
     let hoverTimeout: NodeJS.Timeout | null = null
     let lastMouseY = 0
+    const HOVER_THRESHOLD = 150 // Increased hover area to 150px from top
 
     const handleMouseMove = (e: MouseEvent) => {
       lastMouseY = e.clientY
-      // Show navbar when mouse is near top of viewport (within 120px from top of screen)
-      if (e.clientY < 120) {
+      // Show navbar when mouse is near top of viewport (within 150px from top of screen)
+      if (e.clientY < HOVER_THRESHOLD) {
         setIsVisible(true)
         // Clear any pending hide timeout
         if (hoverTimeout) {
@@ -23,16 +27,17 @@ export default function Navbar() {
           hoverTimeout = null
         }
       } else {
+        // Only hide if mouse is clearly away from top area and navbar
         // Delay hiding to prevent flickering when mouse moves quickly
         if (hoverTimeout) {
           clearTimeout(hoverTimeout)
         }
         hoverTimeout = setTimeout(() => {
-          // Hide if mouse is not near top
-          if (lastMouseY >= 120) {
+          // Hide if mouse is not near top and not over navbar
+          if (lastMouseY >= HOVER_THRESHOLD) {
             setIsVisible(false)
           }
-        }, 200)
+        }, 300) // Increased delay for better UX
       }
     }
 
@@ -53,13 +58,19 @@ export default function Navbar() {
           ? 'translate-y-0 opacity-100'
           : '-translate-y-full opacity-0 pointer-events-none'
       }`}
-      onMouseEnter={() => setIsVisible(true)}
-      onMouseLeave={() => {
-        // Hide navbar when mouse leaves the navbar area
-        const timeout = setTimeout(() => {
-          setIsVisible(false)
-        }, 200)
-        return () => clearTimeout(timeout)
+      onMouseEnter={() => {
+        setIsVisible(true)
+      }}
+      onMouseLeave={(e) => {
+        // Delay hiding when mouse leaves navbar
+        // The mousemove handler will handle showing/hiding based on position
+        const mouseY = e.clientY
+        if (mouseY > 150) {
+          const timeout = setTimeout(() => {
+            setIsVisible(false)
+          }, 200)
+          return () => clearTimeout(timeout)
+        }
       }}
     >
       <div className="bg-white/95 backdrop-blur-xl shadow-3d-lg border-b-2 border-teal-200/50">
@@ -81,7 +92,7 @@ export default function Navbar() {
             </Link>
 
             {/* Navigation Links */}
-            <div className="flex items-center space-x-6 md:space-x-8">
+            <div className="flex items-center space-x-4 md:space-x-6">
               <Link
                 href="/"
                 className={`px-2 py-2 font-semibold transition-all duration-200 relative ${
@@ -90,24 +101,55 @@ export default function Navbar() {
                     : 'text-navy-600 hover:text-navy-700'
                 }`}
               >
-                Beranda
+                {t('nav.beranda')}
                 {pathname === '/' && (
                   <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-teal-500 to-gold-600"></span>
                 )}
               </Link>
-              <Link
-                href="/profil-desa"
-                className={`px-2 py-2 font-semibold transition-all duration-200 relative ${
-                  pathname === '/profil-desa'
-                    ? 'text-navy-700'
-                    : 'text-navy-600 hover:text-navy-700'
-                }`}
-              >
-                Profil Desa
-                {pathname === '/profil-desa' && (
-                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-teal-500 to-gold-600"></span>
-                )}
-              </Link>
+              {/* Profil Desa with hover dropdown */}
+              <div className="relative group">
+                <Link
+                  href="/profil-desa"
+                  className={`px-2 py-2 font-semibold transition-all duration-200 relative flex items-center ${
+                    pathname.startsWith('/profil-desa')
+                      ? 'text-navy-700'
+                      : 'text-navy-600 hover:text-navy-700'
+                  }`}
+                >
+                  {t('nav.profilDesa')}
+                  <svg
+                    className="w-4 h-4 ml-1 text-current transition-transform duration-200 group-hover:rotate-180"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                  {pathname.startsWith('/profil-desa') && (
+                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-teal-500 to-gold-600"></span>
+                  )}
+                </Link>
+                {/* Dropdown menu */}
+                <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-200 absolute left-0 top-full mt-0 w-56 rounded-2xl bg-white shadow-xl border border-teal-100 py-2 z-50">
+                  <Link
+                    href="/profil-desa/infrastruktur"
+                    className="block px-4 py-2 text-sm font-semibold text-navy-600 hover:bg-teal-50 hover:text-navy-800"
+                  >
+                    Infrastruktur
+                  </Link>
+                  <Link
+                    href="/profil-desa/sumber-daya"
+                    className="block px-4 py-2 text-sm font-semibold text-navy-600 hover:bg-teal-50 hover:text-navy-800"
+                  >
+                    Sumber Daya
+                  </Link>
+                </div>
+              </div>
               <Link
                 href="/kampung-tahu"
                 className={`px-2 py-2 font-semibold transition-all duration-200 relative ${
@@ -116,21 +158,21 @@ export default function Navbar() {
                     : 'text-navy-600 hover:text-navy-700'
                 }`}
               >
-                Kampung Tahu
+                {t('nav.kampungTahu')}
                 {pathname === '/kampung-tahu' && (
                   <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-teal-500 to-gold-600"></span>
                 )}
               </Link>
               <Link
-                href="/bumdes"
+                href="/umkm"
                 className={`px-2 py-2 font-semibold transition-all duration-200 relative ${
-                  pathname === '/bumdes'
+                  pathname === '/umkm'
                     ? 'text-navy-700'
                     : 'text-navy-600 hover:text-navy-700'
                 }`}
               >
-                BUMDES
-                {pathname === '/bumdes' && (
+                {t('nav.umkm')}
+                {pathname === '/umkm' && (
                   <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-teal-500 to-gold-600"></span>
                 )}
               </Link>
@@ -142,7 +184,7 @@ export default function Navbar() {
                     : 'text-navy-600 hover:text-navy-700'
                 }`}
               >
-                Project
+                {t('nav.project')}
                 {pathname === '/project' && (
                   <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-teal-500 to-gold-600"></span>
                 )}
@@ -155,11 +197,12 @@ export default function Navbar() {
                     : 'text-navy-600 hover:text-navy-700'
                 }`}
               >
-                Profil KKN
+                {t('nav.profilKkn')}
                 {pathname === '/profil-kkn' && (
                   <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-teal-500 to-gold-600"></span>
                 )}
               </Link>
+              <LanguageSwitcher />
             </div>
           </div>
         </div>

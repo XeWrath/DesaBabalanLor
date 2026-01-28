@@ -170,17 +170,6 @@ export default function BUMDESPage() {
         </div>
       </section>
 
-      {/* Back to Home Button */}
-      <section className="py-12 px-4 sm:px-6 lg:px-8">
-        <div className="max-w-6xl mx-auto text-center">
-          <Link
-            href="/"
-            className="inline-block px-10 py-4 bg-gradient-to-r from-navy-600 to-teal-600 text-white rounded-2xl font-bold text-lg shadow-xl hover:scale-105 transition-all duration-300"
-          >
-            Kembali ke Beranda
-          </Link>
-        </div>
-      </section>
     </main>
   )
 }

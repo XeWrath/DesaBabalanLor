@@ -1,12 +1,21 @@
 'use client'
 
+import { useScrollAnimation } from '@/hooks/useScrollAnimation'
+import { useLanguage } from '@/contexts/LanguageContext'
+
 export default function Map() {
   // Coordinates for Desa Babalan Lor, Kecamatan Bojong, Pekalongan
-  const latitude = -6.9350483
-  const longitude = 109.5856234
+  const latitude = -6.9365
+  const longitude = 109.5862
+  const sectionAnim = useScrollAnimation()
+  const { t } = useLanguage()
 
   return (
-    <section id="map-section" className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-sky-50 via-white to-teal-50 relative overflow-hidden">
+    <section 
+      ref={sectionAnim.ref}
+      id="map-section" 
+      className={`py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-sky-50 via-white to-teal-50 relative overflow-hidden ${sectionAnim.isVisible ? 'animate-pop-up' : 'opacity-0'}`}
+    >
       {/* 3D Background elements */}
       <div className="absolute top-0 left-1/3 w-96 h-96 bg-gradient-to-br from-teal-300 to-gold-300 rounded-full opacity-10 blur-3xl transform-3d animate-float" style={{ transform: 'translateZ(-100px)' }}></div>
       <div className="absolute bottom-0 right-1/3 w-80 h-80 bg-gradient-to-br from-gold-300 to-amber-300 rounded-full opacity-10 blur-3xl transform-3d animate-float-delayed" style={{ transform: 'translateZ(-150px)' }}></div>
@@ -14,10 +23,10 @@ export default function Map() {
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="text-center mb-16">
           <h2 className="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-navy-700 via-teal-600 to-gold-600 mb-6 leading-tight pb-2">
-            Lokasi Desa
+            {t('map.title')}
           </h2>
           <p className="text-xl text-gray-700 font-medium mb-4">
-            Temukan lokasi Desa Babalan Lor di peta
+            {t('map.subtitle')}
           </p>
           <div className="relative inline-block">
             <div className="w-32 h-1.5 bg-gradient-to-r from-transparent via-teal-500 to-transparent mx-auto transform-3d shadow-3d"></div>
@@ -56,8 +65,8 @@ export default function Map() {
           <div className="relative transform-3d group">
             <div className="bg-white/90 backdrop-blur-lg rounded-2xl px-8 py-6 shadow-3d-lg transform-3d transition-all duration-500 group-hover:translate-z-50 group-hover:shadow-3d-lg border-2 border-teal-200">
               <p className="text-gray-700 text-lg">
-                <span className="font-black bg-gradient-to-r from-navy-600 to-teal-600 bg-clip-text text-transparent">Alamat:</span>{' '}
-                <span className="font-semibold">Desa Babalan Lor, Kecamatan Bojong, Kabupaten Pekalongan, Jawa Tengah</span>
+                <span className="font-black bg-gradient-to-r from-navy-600 to-teal-600 bg-clip-text text-transparent">{t('map.address')}</span>{' '}
+                <span className="font-semibold">{t('map.addressValue')}</span>
               </p>
               <div className="absolute inset-0 bg-gradient-to-r from-teal-400 to-gold-400 opacity-0 group-hover:opacity-10 rounded-2xl blur-xl transition-opacity duration-500"></div>
             </div>
@@ -68,7 +77,7 @@ export default function Map() {
             rel="noopener noreferrer"
             className="inline-block px-8 py-4 bg-gradient-to-r from-navy-600 to-teal-600 text-white rounded-2xl font-bold text-lg shadow-3d-lg transform-3d hover:translate-z-50 hover:scale-105 transition-all duration-300"
           >
-            Dapatkan Petunjuk Arah
+            {t('map.directions')}
           </a>
         </div>
       </div>

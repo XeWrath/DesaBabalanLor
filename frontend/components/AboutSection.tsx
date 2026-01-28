@@ -1,10 +1,14 @@
 'use client'
 
 import { useRef, useEffect } from 'react'
+import { useScrollAnimation } from '@/hooks/useScrollAnimation'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function AboutSection() {
+  const { t } = useLanguage()
   const cardRef = useRef<HTMLDivElement>(null)
   const imageRef = useRef<HTMLDivElement>(null)
+  const sectionAnim = useScrollAnimation()
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -38,7 +42,11 @@ export default function AboutSection() {
   }, [])
 
   return (
-    <section id="about-section" className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-sky-50 to-teal-50 relative overflow-hidden">
+    <section 
+      ref={sectionAnim.ref}
+      id="about-section" 
+      className={`py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-sky-50 to-teal-50 relative overflow-hidden ${sectionAnim.isVisible ? 'animate-pop-up' : 'opacity-0'}`}
+    >
       {/* Background 3D elements */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-teal-300 rounded-full opacity-10 blur-3xl transform-3d" style={{ transform: 'translateZ(-100px)' }}></div>
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-gold-300 rounded-full opacity-10 blur-3xl transform-3d" style={{ transform: 'translateZ(-150px)' }}></div>
@@ -46,7 +54,7 @@ export default function AboutSection() {
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="text-center mb-20">
           <h2 className="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-navy-700 via-teal-600 to-gold-600 mb-6 leading-tight pb-2">
-            Tentang Desa Babalan Lor
+            {t('about.title')}
           </h2>
           <div className="relative inline-block">
             <div className="w-32 h-1.5 bg-gradient-to-r from-transparent via-teal-500 to-transparent mx-auto transform-3d shadow-3d"></div>
@@ -58,23 +66,18 @@ export default function AboutSection() {
           <div className="space-y-8 transform-3d" style={{ transform: 'translateZ(30px)' }}>
             <div className="bg-white/80 backdrop-blur-lg rounded-3xl p-8 shadow-3d-lg transform-3d hover:translate-z-50 transition-all duration-300">
               <p className="text-lg text-gray-800 leading-relaxed font-medium">
-                Desa Babalan Lor adalah sebuah desa yang terletak di wilayah yang kaya akan 
-                keindahan alam dan budaya lokal. Desa ini dikenal dengan masyarakatnya yang 
-                ramah dan gotong royong yang masih sangat kental.
+                {t('about.desc1')}
               </p>
             </div>
             <div className="bg-gradient-to-br from-sky-50 to-teal-50 rounded-3xl p-8 shadow-3d-lg transform-3d hover:translate-z-50 transition-all duration-300 border-2 border-teal-200">
               <p className="text-lg text-gray-800 leading-relaxed font-medium">
-                Dengan pemandangan yang menawan dan udara yang sejuk, Desa Babalan Lor 
-                menawarkan pengalaman hidup yang harmonis antara manusia dan alam. 
-                Masyarakat desa senantiasa menjaga kelestarian lingkungan sambil 
-                mengembangkan potensi lokal untuk kesejahteraan bersama.
+                {t('about.desc2')}
               </p>
             </div>
             <div className="flex items-center gap-4 pt-6">
               <div className="flex-1 h-0.5 bg-gradient-to-r from-transparent via-teal-400 to-transparent"></div>
               <p className="text-navy-700 font-bold italic text-lg px-4 py-2 bg-white/60 backdrop-blur-sm rounded-full shadow-3d">
-                "Bersama membangun desa yang sejahtera dan berkelanjutan"
+                "{t('about.quote')}"
               </p>
               <div className="flex-1 h-0.5 bg-gradient-to-r from-transparent via-teal-400 to-transparent"></div>
             </div>

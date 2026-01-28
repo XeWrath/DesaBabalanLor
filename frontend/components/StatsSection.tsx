@@ -1,15 +1,18 @@
 'use client'
 
-import { useRef, useEffect, useState } from 'react'
+import { useState } from 'react'
+import { useScrollAnimation } from '@/hooks/useScrollAnimation'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function StatsSection() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
-  const sectionRef = useRef<HTMLDivElement>(null)
+  const sectionAnim = useScrollAnimation()
+  const { t } = useLanguage()
 
   const stats = [
     {
       number: '2,500+',
-      label: 'Penduduk',
+      label: t('stats.penduduk'),
       color: 'from-teal-400 to-steel-500',
       bgColor: 'bg-teal-50',
       icon: (
@@ -19,8 +22,8 @@ export default function StatsSection() {
       ),
     },
     {
-      number: '15+',
-      label: 'Dusun',
+      number: '4',
+      label: t('stats.rw'),
       color: 'from-gold-400 to-amber-500',
       bgColor: 'bg-gold-50',
       icon: (
@@ -30,8 +33,8 @@ export default function StatsSection() {
       ),
     },
     {
-      number: '500+',
-      label: 'Keluarga',
+      number: '15',
+      label: t('stats.rt'),
       color: 'from-amber-400 to-orange-500',
       bgColor: 'bg-amber-50',
       icon: (
@@ -41,31 +44,34 @@ export default function StatsSection() {
       ),
     },
     {
-      number: '100%',
-      label: 'Gotong Royong',
+      number: '500+',
+      label: t('stats.keluarga'),
       color: 'from-navy-500 to-teal-600',
       bgColor: 'bg-navy-50',
       icon: (
         <svg className="w-10 h-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
         </svg>
       ),
     },
   ]
 
   return (
-    <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-sky-100 via-teal-100 to-gold-50 relative overflow-hidden">
+    <section 
+      ref={sectionAnim.ref}
+      className={`py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-br from-sky-100 via-teal-100 to-gold-50 relative overflow-hidden ${sectionAnim.isVisible ? 'animate-pop-up' : 'opacity-0'}`}
+    >
       {/* 3D Background elements */}
       <div className="absolute top-0 left-1/4 w-96 h-96 bg-teal-300 rounded-full opacity-20 blur-3xl transform-3d animate-float" style={{ transform: 'translateZ(-200px)' }}></div>
       <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-gold-300 rounded-full opacity-20 blur-3xl transform-3d animate-float-delayed" style={{ transform: 'translateZ(-150px)' }}></div>
       
-      <div ref={sectionRef} className="max-w-6xl mx-auto relative z-10">
+      <div className="max-w-6xl mx-auto relative z-10">
         <div className="text-center mb-20">
           <h2 className="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-navy-700 via-teal-600 to-gold-600 mb-6">
-            Data Desa
+            {t('stats.title')}
           </h2>
           <p className="text-xl text-gray-700 font-medium">
-            Statistik dan informasi umum tentang Desa Babalan Lor
+            {t('stats.subtitle')}
           </p>
           <div className="relative inline-block mt-6">
             <div className="w-32 h-1.5 bg-gradient-to-r from-transparent via-teal-500 to-transparent mx-auto transform-3d shadow-3d"></div>

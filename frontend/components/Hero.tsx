@@ -1,6 +1,9 @@
 'use client'
 
+import { useLanguage } from '@/contexts/LanguageContext'
+
 export default function Hero() {
+  const { t } = useLanguage()
   return (
     <section className="relative h-screen flex items-center justify-center overflow-hidden">
       {/* Video Background */}
@@ -14,10 +17,6 @@ export default function Hero() {
         >
           <source src="/heroV.mp4" type="video/mp4" />
         </video>
-        {/* Overlay gradient for better text readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-navy-600/70 via-teal-600/60 to-navy-700/70"></div>
-        {/* Additional overlay for depth */}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
       </div>
       
       {/* Content */}
@@ -26,12 +25,12 @@ export default function Hero() {
           {/* Title */}
           <div className="mb-8">
             <h1 className="text-5xl md:text-7xl font-black text-white mb-4 animate-slide-up drop-shadow-2xl leading-tight pb-2">
-              Desa Babalan Lor
+              {t('hero.title')}
             </h1>
           </div>
           
           <p className="text-xl md:text-2xl text-sky-100 mb-12 animate-slide-up font-medium drop-shadow-lg" style={{ animationDelay: '0.2s' }}>
-            Sebuah desa yang penuh dengan keindahan alam dan kearifan lokal
+            {t('hero.subtitle')}
           </p>
           
           {/* Buttons */}
@@ -43,20 +42,17 @@ export default function Hero() {
               }}
               className="group relative px-10 py-4 bg-white text-navy-700 rounded-2xl font-bold text-lg shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer"
             >
-              <span className="relative z-10">Jelajahi Desa</span>
+              <span className="relative z-10">{t('hero.explore')}</span>
               <div className="absolute inset-0 bg-gradient-to-r from-teal-400 to-gold-600 rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity blur-xl"></div>
             </button>
-            <button 
-              onClick={() => {
-                const mapSection = document.getElementById('map-section')
-                mapSection?.scrollIntoView({ behavior: 'smooth' })
-              }}
-              className="group relative px-10 py-4 bg-transparent border-3 border-white text-white rounded-2xl font-bold text-lg backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-navy-700 hover:scale-105 cursor-pointer"
+            <a 
+              href="/profil-desa"
+              className="group relative px-10 py-4 bg-transparent border-3 border-white text-white rounded-2xl font-bold text-lg backdrop-blur-sm transition-all duration-300 hover:bg-white hover:text-navy-700 hover:scale-105 cursor-pointer inline-block"
               style={{ borderWidth: '3px' }}
             >
-              <span className="relative z-10">Pelajari Lebih Lanjut</span>
+              <span className="relative z-10">{t('hero.learnMore')}</span>
               <div className="absolute inset-0 bg-gradient-to-r from-teal-400 to-gold-600 rounded-2xl opacity-0 group-hover:opacity-30 transition-opacity blur-xl"></div>
-            </button>
+            </a>
           </div>
         </div>
       </div>

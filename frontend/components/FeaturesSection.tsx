@@ -1,14 +1,18 @@
 'use client'
 
 import { useState } from 'react'
+import { useScrollAnimation } from '@/hooks/useScrollAnimation'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function FeaturesSection() {
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+  const sectionAnim = useScrollAnimation()
+  const { t } = useLanguage()
 
   const features = [
     {
-      title: 'Keindahan Alam',
-      description: 'Desa dengan pemandangan yang menawan dan udara yang sejuk, dikelilingi oleh perbukitan dan sawah yang hijau.',
+      title: t('features.alam'),
+      description: t('features.alamDesc'),
       gradient: 'from-teal-400 via-steel-500 to-teal-600',
       bgGradient: 'from-teal-50 to-steel-50',
       icon: (
@@ -18,8 +22,8 @@ export default function FeaturesSection() {
       ),
     },
     {
-      title: 'Budaya Lokal',
-      description: 'Kearifan lokal yang masih terjaga dengan baik, termasuk tradisi dan adat istiadat yang diwariskan turun temurun.',
+      title: t('features.budaya'),
+      description: t('features.budayaDesc'),
       gradient: 'from-gold-400 via-amber-500 to-gold-600',
       bgGradient: 'from-gold-50 to-amber-50',
       icon: (
@@ -29,8 +33,8 @@ export default function FeaturesSection() {
       ),
     },
     {
-      title: 'Gotong Royong',
-      description: 'Semangat gotong royong yang masih sangat kental dalam kehidupan bermasyarakat sehari-hari.',
+      title: t('features.gotong'),
+      description: t('features.gotongDesc'),
       gradient: 'from-amber-400 via-orange-500 to-amber-600',
       bgGradient: 'from-amber-50 to-orange-50',
       icon: (
@@ -40,8 +44,8 @@ export default function FeaturesSection() {
       ),
     },
     {
-      title: 'Potensi Ekonomi',
-      description: 'Berbagai potensi ekonomi lokal yang terus dikembangkan untuk meningkatkan kesejahteraan masyarakat.',
+      title: t('features.ekonomi'),
+      description: t('features.ekonomiDesc'),
       gradient: 'from-navy-400 via-teal-500 to-navy-600',
       bgGradient: 'from-navy-50 to-teal-50',
       icon: (
@@ -53,18 +57,21 @@ export default function FeaturesSection() {
   ]
 
   return (
-    <section className="py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-sky-50 to-teal-50 relative overflow-hidden">
+    <section 
+      ref={sectionAnim.ref}
+      className={`py-24 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-white via-sky-50 to-teal-50 relative overflow-hidden ${sectionAnim.isVisible ? 'animate-pop-up' : 'opacity-0'}`}
+    >
       {/* 3D Background elements */}
       <div className="absolute top-1/4 right-0 w-96 h-96 bg-gradient-to-br from-teal-300 to-gold-300 rounded-full opacity-10 blur-3xl transform-3d animate-float" style={{ transform: 'translateZ(-100px)' }}></div>
       <div className="absolute bottom-1/4 left-0 w-80 h-80 bg-gradient-to-br from-gold-300 to-amber-300 rounded-full opacity-10 blur-3xl transform-3d animate-float-delayed" style={{ transform: 'translateZ(-150px)' }}></div>
       
       <div className="max-w-6xl mx-auto relative z-10">
         <div className="text-center mb-20">
-          <h2 className="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-navy-700 via-teal-600 to-gold-600 mb-6">
-            Keunggulan Desa
+          <h2 className="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-r from-navy-700 via-teal-600 to-gold-600 mb-6 leading-tight pb-2">
+            {t('features.title')}
           </h2>
           <p className="text-xl text-gray-700 font-medium mb-4">
-            Hal-hal yang membuat Desa Babalan Lor istimewa
+            {t('features.subtitle')}
           </p>
           <div className="relative inline-block">
             <div className="w-32 h-1.5 bg-gradient-to-r from-transparent via-teal-500 to-transparent mx-auto transform-3d shadow-3d"></div>

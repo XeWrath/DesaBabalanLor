@@ -1,6 +1,10 @@
+'use client'
+
 import Link from 'next/link'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function Footer() {
+  const { t } = useLanguage()
   return (
     <footer className="bg-gradient-to-br from-navy-800 via-navy-900 to-navy-950 text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -13,7 +17,7 @@ export default function Footer() {
                 <span className="text-gold-400">Babalan Lor</span>
               </h3>
               <p className="text-sky-200 leading-relaxed mt-4">
-                Mewujudkan desa yang mandiri, berbudaya, dan sejahtera dengan menjunjung tinggi nilai-nilai kearifan lokal.
+                {t('footer.mission')}
               </p>
             </div>
             <div className="flex space-x-4">
@@ -58,36 +62,36 @@ export default function Footer() {
 
           {/* Middle Section - Quick Links */}
           <div>
-            <h4 className="text-xl font-bold mb-6">Tautan Cepat</h4>
+            <h4 className="text-xl font-bold mb-6">{t('footer.quickLinks')}</h4>
             <ul className="space-y-3">
               <li>
                 <Link href="/" className="text-sky-200 hover:text-white transition-colors">
-                  Beranda
+                  {t('nav.beranda')}
                 </Link>
               </li>
               <li>
                 <Link href="/profil-desa" className="text-sky-200 hover:text-white transition-colors">
-                  Profil Desa
+                  {t('nav.profilDesa')}
                 </Link>
               </li>
               <li>
                 <Link href="/kampung-tahu" className="text-sky-200 hover:text-white transition-colors">
-                  Kampung Tahu
+                  {t('nav.kampungTahu')}
                 </Link>
               </li>
               <li>
-                <Link href="/bumdes" className="text-sky-200 hover:text-white transition-colors">
-                  BUMDES
+                <Link href="/umkm" className="text-sky-200 hover:text-white transition-colors">
+                  {t('nav.umkm')}
                 </Link>
               </li>
               <li>
                 <Link href="/project" className="text-sky-200 hover:text-white transition-colors">
-                  Project
+                  {t('nav.project')}
                 </Link>
               </li>
               <li>
                 <Link href="/profil-kkn" className="text-sky-200 hover:text-white transition-colors">
-                  Profil KKN
+                  {t('nav.profilKkn')}
                 </Link>
               </li>
             </ul>
@@ -95,7 +99,7 @@ export default function Footer() {
 
           {/* Right Section - Contact Us */}
           <div>
-            <h4 className="text-xl font-bold mb-6">Hubungi Kami</h4>
+            <h4 className="text-xl font-bold mb-6">{t('footer.contact')}</h4>
             <ul className="space-y-4">
               <li className="flex items-start space-x-3">
                 <svg className="w-5 h-5 text-gold-400 mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -125,7 +129,7 @@ export default function Footer() {
         {/* Copyright Section */}
         <div className="mt-12 pt-8 border-t border-navy-700">
           <p className="text-center text-sky-300 text-sm">
-            © 2026 Pemerintah Desa Babalan Lor. All rights reserved.
+            {t('footer.copyright')}
           </p>
         </div>
       </div>

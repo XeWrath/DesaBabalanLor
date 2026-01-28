@@ -1,8 +1,10 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-import Navbar from '@/components/Navbar'
+import Providers from '@/components/Providers'
+import NavbarWrapper from '@/components/NavbarWrapper'
 import Footer from '@/components/Footer'
+import ScrollToTop from '@/components/ScrollToTop'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -19,11 +21,12 @@ export default function RootLayout({
   return (
     <html lang="id">
       <body className={inter.className}>
-        {/* Invisible hover area at top to trigger navbar */}
-        <div className="fixed top-0 left-0 right-0 h-24 z-40 pointer-events-none" />
-        <Navbar />
-        {children}
-        <Footer />
+        <Providers>
+          <NavbarWrapper />
+          {children}
+          <Footer />
+        </Providers>
+        <ScrollToTop />
       </body>
     </html>
   )
