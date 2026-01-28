@@ -9,6 +9,7 @@ import { useLanguage } from '@/contexts/LanguageContext'
 export default function Navbar() {
   const [isVisible, setIsVisible] = useState(false)
   const [isAlwaysVisible, setIsAlwaysVisible] = useState(false)
+  const [isProfilMenuOpen, setIsProfilMenuOpen] = useState(false)
   const pathname = usePathname()
   const { t } = useLanguage()
 
@@ -111,7 +112,7 @@ export default function Navbar() {
             </Link>
 
             {/* Navigation Links */}
-            <div className="flex items-center space-x-4 md:space-x-6 overflow-x-auto no-scrollbar whitespace-nowrap">
+            <div className="flex items-center space-x-4 md:space-x-6">
               <Link
                 href="/"
                 className={`px-2 py-2 font-semibold transition-all duration-200 relative ${
@@ -125,10 +126,11 @@ export default function Navbar() {
                   <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-teal-500 to-gold-600"></span>
                 )}
               </Link>
-              {/* Profil Desa with hover dropdown */}
-              <div className="relative group">
-                <Link
-                  href="/profil-desa"
+              {/* Profil Desa with click dropdown (desktop + mobile) */}
+              <div className="relative">
+                <button
+                  type="button"
+                  onClick={() => setIsProfilMenuOpen((open) => !open)}
                   className={`px-2 py-2 font-semibold transition-all duration-200 relative flex items-center ${
                     pathname.startsWith('/profil-desa')
                       ? 'text-navy-700'
@@ -137,7 +139,9 @@ export default function Navbar() {
                 >
                   {t('nav.profilDesa')}
                   <svg
-                    className="w-4 h-4 ml-1 text-current transition-transform duration-200 group-hover:rotate-180"
+                    className={`w-4 h-4 ml-1 text-current transition-transform duration-200 ${
+                      isProfilMenuOpen ? 'rotate-180' : ''
+                    }`}
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -152,17 +156,30 @@ export default function Navbar() {
                   {pathname.startsWith('/profil-desa') && (
                     <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-teal-500 to-gold-600"></span>
                   )}
-                </Link>
+                </button>
                 {/* Dropdown menu */}
-                <div className="invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-opacity duration-200 absolute left-0 top-full mt-0 w-56 rounded-2xl bg-white shadow-xl border border-teal-100 py-2 z-50">
+                <div
+                  className={`absolute left-0 top-full mt-0 w-56 rounded-2xl bg-white shadow-xl border border-teal-100 py-2 z-50 transition-opacity duration-200 ${
+                    isProfilMenuOpen ? 'visible opacity-100' : 'invisible opacity-0 pointer-events-none'
+                  }`}
+                >
+                  <Link
+                    href="/profil-desa"
+                    onClick={() => setIsProfilMenuOpen(false)}
+                    className="block px-4 py-2 text-sm font-semibold text-navy-600 hover:bg-teal-50 hover:text-navy-800"
+                  >
+                    Profil Desa
+                  </Link>
                   <Link
                     href="/profil-desa/infrastruktur"
+                    onClick={() => setIsProfilMenuOpen(false)}
                     className="block px-4 py-2 text-sm font-semibold text-navy-600 hover:bg-teal-50 hover:text-navy-800"
                   >
                     Infrastruktur
                   </Link>
                   <Link
                     href="/profil-desa/sumber-daya"
+                    onClick={() => setIsProfilMenuOpen(false)}
                     className="block px-4 py-2 text-sm font-semibold text-navy-600 hover:bg-teal-50 hover:text-navy-800"
                   >
                     Sumber Daya
