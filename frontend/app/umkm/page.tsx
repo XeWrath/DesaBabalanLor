@@ -31,7 +31,9 @@ export default function UMKMPage() {
       {/* Hero Section */}
       <section 
         ref={heroAnim.ref}
-        className={`relative h-screen flex items-center justify-center overflow-hidden ${heroAnim.isVisible ? 'animate-pop-up' : 'opacity-0'}`}
+        className={`relative min-h-[70vh] md:h-screen flex items-center justify-center overflow-hidden ${
+          heroAnim.isVisible ? 'animate-pop-up' : 'opacity-0'
+        }`}
       >
         <div className="absolute inset-0 bg-gradient-to-br from-amber-600 via-orange-600 to-amber-700">
           <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/40 to-transparent"></div>
@@ -188,10 +190,10 @@ export default function UMKMPage() {
                 <tbody>
                   {umkmList.map((place) => (
                     <tr key={place.id} className="hover:bg-amber-50 transition-colors">
-                      <td className="border border-amber-200 px-3 py-2 text-center font-semibold">
+                      <td className="border border-amber-200 px-3 py-2 text-center font-semibold text-gray-800">
                         {place.id}
                       </td>
-                      <td className="border border-amber-200 px-3 py-2">
+                      <td className="border border-amber-200 px-3 py-2 text-gray-800">
                         {place.name}
                       </td>
                     </tr>

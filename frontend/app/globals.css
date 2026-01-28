@@ -160,6 +160,15 @@ body {
   transform: translateZ(0) !important;
 }
 
+/* Hide scrollbar but keep scroll behavior (for navbar on mobile) */
+.no-scrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
+
 /* Leaflet CSS */
 @import 'leaflet/dist/leaflet.css';
 

@@ -27,17 +27,20 @@ export default function ProfilKKNPage() {
   return (
     <main className="min-h-screen bg-gradient-to-b from-sky-50 via-white to-teal-50">
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative min-h-[70vh] md:h-screen flex items-center justify-center overflow-hidden">
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{ backgroundImage: 'url(/images/logoKKN.jpg)' }}
         />
         
         <div className="relative z-10 text-center px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-7xl font-black text-white mb-6 drop-shadow-2xl animate-slide-up leading-tight pb-2">
+          <h1 className="text-4xl sm:text-5xl md:text-7xl font-black text-white mb-4 md:mb-6 drop-shadow-2xl animate-slide-up leading-tight pb-2">
             {t('kkn.hero')}
           </h1>
-          <p className="text-xl md:text-2xl text-sky-100 mb-8 font-medium drop-shadow-lg animate-slide-up" style={{ animationDelay: '0.2s' }}>
+          <p
+            className="text-base sm:text-lg md:text-2xl text-sky-100 mb-6 md:mb-8 font-medium drop-shadow-lg animate-slide-up"
+            style={{ animationDelay: '0.2s' }}
+          >
             {t('kkn.heroSub')}
           </p>
         </div>
