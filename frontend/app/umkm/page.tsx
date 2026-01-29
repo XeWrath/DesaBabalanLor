@@ -15,15 +15,52 @@ const umkmList = [
   { id: 9, name: 'Supriyanto Konveksi', type: 'Konveksi', note: 'Konveksi skala rumahan' },
   { id: 10, name: 'Konfeksi Ucok Pernah Tampan', type: 'Konveksi', note: 'Brand konveksi kreatif lokal' },
   { id: 11, name: 'Konfeksi Alex', type: 'Konveksi', note: 'Usaha konfeksi pakaian' },
-  { id: 12, name: 'River Denim', type: 'Konveksi Denim', note: 'Produksi jeans/denim lokal', highlight: true },
+  { id: 12, name: 'River Denim', type: 'Konveksi', note: 'Produksi pakaian denim lokal', highlight: true },
   { id: 13, name: 'Harjo Konfeksi', type: 'Konveksi', note: 'Konveksi pakaian dan seragam' },
+]
+
+// Detail UMKM table data (disarikan dari tabel survei)
+const umkmDetailList = [
+  { no: 1, name: 'Pengolahan Pindang', owner: 'Abrori', address: 'RT 09 RW 03', product: 'Ikan Pindang' },
+  { no: 2, name: 'Konveksi Alex', owner: 'Alex', address: 'Babalan Lor RT 02 RW 01 Gg. Melati', product: 'Daster & Setelan Rayon' },
+  { no: 3, name: 'Kampung Tahu', owner: 'BPMD (Badan Pemberdayaan Masyarakat dan Desa)', address: 'Sentra Industri Tahu, RT 09 RW 03 Desa Babalan Lor', product: 'Tahu & Tempe' },
+  { no: 4, name: 'Afazi', owner: 'Nanang', address: 'RT 09 RW 03 Desa Babalan Lor', product: 'Celana & Baju Kemeja' },
+  { no: 5, name: 'Konveksi Ucok Pernah Tampan', owner: 'Ucok', address: 'RT 08 RW 03 Gg. Damai', product: 'Jaket & Hoodie' },
+  { no: 6, name: 'Zakaria Collection', owner: 'Zakaria', address: 'Jl. Raya Babalan (depan Musholla)', product: 'Celana Jeans' },
+  { no: 7, name: 'Harjo Konveksi', owner: 'Harjo', address: 'RT 05 RW 02 Gg. Kenanga', product: 'Celana Kargo' },
+  { no: 8, name: 'Supriyanto Konveksi', owner: 'Supriyanto', address: 'RT 01 RW 01 dekat SD Babalan', product: 'Jeans & Celana Kargo' },
+  { no: 9, name: 'Ahmad Mugiono Konveksi', owner: 'Ahmad Mugiono', address: 'Desa Babalan Lor', product: 'Jeans & Celana Kargo' },
+  { no: 10, name: 'Theaser', owner: 'Wiharyo', address: 'Desa Babalan Lor RT 13 RW 04', product: 'Konveksi Celana Kargo' },
+  { no: 11, name: 'Konveksi Lomen Collection', owner: 'Lomen', address: 'RT 04 RW 02 Gg. Mawar', product: 'Konveksi Celana Anak' },
+  { no: 12, name: 'CV. Buana Indah Textile', owner: '-', address: 'Jl. Raya Bojong - Pekalongan', product: 'Kain Cinos, Toyobo, Polimero, Rayon, Flanel, Kain Katun' },
+  { no: 13, name: 'River Denim', owner: '-', address: 'Jl. Raya Babalan Lor No. 45', product: 'Celana Jeans' },
+  { no: 14, name: 'Konveksi Castielo H. Subiyanto', owner: 'H. Subiyanto', address: 'Kawasan Sentra Tekstil, Gg. 3', product: 'Baju Koko' },
+  { no: 15, name: 'Rumah Konveksi Mursalim', owner: 'Mursalim', address: 'Desa Babalan Lor', product: 'Pakaian Umum' },
+]
+
+// Jenis usaha dan lama keberjalanan (disarikan dari tabel biru)
+const usahaJenisData = [
+  { jenis: 'Jasa Konveksi Rumahan', jumlah: 6 },
+  { jenis: 'Produksi Kain Skala Besar', jumlah: 1 },
+  { jenis: 'Konveksi dan Seller Pakaian', jumlah: 5 },
+  { jenis: 'Produksi Bahan Pangan', jumlah: 2 },
+  { jenis: 'Marketing', jumlah: 1 },
+]
+
+const usahaLamaData = [
+  { lama: '1 - 5 Tahun', jumlah: 3 },
+  { lama: '6 - 10 Tahun', jumlah: 7 },
+  { lama: '11 - 15 Tahun', jumlah: 3 },
+  { lama: '16 - 20 Tahun', jumlah: 1 },
+  { lama: '>20 Tahun', jumlah: 1 },
 ]
 
 export default function UMKMPage() {
   const heroAnim = useScrollAnimation()
   const aboutAnim = useScrollAnimation()
   const listAnim = useScrollAnimation()
-  const visionAnim = useScrollAnimation()
+  const detailAnim = useScrollAnimation()
+  const financeAnim = useScrollAnimation()
   const { t } = useLanguage()
 
   return (
@@ -46,6 +83,119 @@ export default function UMKMPage() {
           <p className="text-xl md:text-2xl text-amber-100 mb-8 font-medium drop-shadow-lg">
             {t('umkm.heroSub')}
           </p>
+        </div>
+      </section>
+
+      {/* Jenis usaha dan lama keberjalanan UMKM */}
+      <section
+        ref={detailAnim.ref}
+        className={`py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-sky-50 to-blue-50 ${
+          detailAnim.isVisible ? 'animate-pop-up' : 'opacity-0'
+        }`}
+      >
+        <div className="max-w-5xl mx-auto">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-navy-700 via-teal-600 to-blue-700 mb-4">
+              {t('umkm.jenisTitle')}
+            </h2>
+            <p className="text-sm md:text-base text-gray-700 max-w-3xl mx-auto">
+              {t('umkm.jenisSub')}
+            </p>
+          </div>
+
+          <div className="bg-white rounded-3xl p-4 md:p-6 shadow-2xl border-2 border-blue-200 overflow-x-auto">
+            <table className="min-w-full text-xs md:text-sm border-collapse">
+              <thead>
+                <tr>
+                  <th
+                    colSpan={4}
+                    className="px-4 py-3 border border-blue-300 bg-blue-200 text-center text-gray-900 font-black tracking-wide"
+                  >
+                    {t('umkm.jenisHeader')}
+                  </th>
+                </tr>
+                <tr className="bg-blue-100 text-gray-900 font-semibold">
+                  <th className="px-3 py-2 border border-blue-300 text-left">
+                    {t('umkm.colJenisUsaha')}
+                  </th>
+                  <th className="px-3 py-2 border border-blue-300 text-center w-20">
+                    {t('umkm.colJumlah')}
+                  </th>
+                  <th className="px-3 py-2 border border-blue-300 text-left">
+                    {t('umkm.colLamaKeberjalanan')}
+                  </th>
+                  <th className="px-3 py-2 border border-blue-300 text-center w-20">
+                    {t('umkm.colJumlah')}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {usahaJenisData.map((jenis, index) => {
+                  const lama = usahaLamaData[index]
+                  return (
+                    <tr key={jenis.jenis} className="hover:bg-blue-50">
+                      <td className="px-3 py-2 border border-blue-200 text-gray-800">
+                        {jenis.jenis}
+                      </td>
+                      <td className="px-3 py-2 border border-blue-200 text-center font-semibold text-gray-900">
+                        {jenis.jumlah}
+                      </td>
+                      <td className="px-3 py-2 border border-blue-200 text-gray-800">
+                        {lama?.lama}
+                      </td>
+                      <td className="px-3 py-2 border border-blue-200 text-center font-semibold text-gray-900">
+                        {lama?.jumlah}
+                      </td>
+                    </tr>
+                  )
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      {/* Ringkasan kondisi keuangan UMKM (tanpa data sensitif per usaha) */}
+      <section
+        ref={financeAnim.ref}
+        className={`py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-amber-50 to-amber-100 ${
+          financeAnim.isVisible ? 'animate-pop-up' : 'opacity-0'
+        }`}
+      >
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-8">
+            <h2 className="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-700 via-orange-700 to-amber-800 mb-4">
+              {t('umkm.financeTitle')}
+            </h2>
+            <p className="text-sm md:text-base text-gray-700 max-w-2xl mx-auto">
+              {t('umkm.financeSub')}
+            </p>
+          </div>
+
+          <div className="bg-white rounded-3xl p-4 md:p-6 shadow-2xl border-2 border-amber-300 overflow-x-auto">
+            <table className="min-w-full text-xs md:text-sm border-collapse">
+              <thead className="bg-amber-200">
+                <tr className="text-gray-900">
+                  <th className="px-4 py-3 border border-amber-400 text-center font-bold">
+                    {t('umkm.colRataPemasukan')}
+                  </th>
+                  <th className="px-4 py-3 border border-amber-400 text-center font-bold">
+                    {t('umkm.colPotensiPemasukan')}
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="bg-amber-50 font-semibold">
+                  <td className="px-4 py-3 border border-amber-300 text-center text-gray-800">
+                    Rp 760.000.000
+                  </td>
+                  <td className="px-4 py-3 border border-amber-300 text-center text-gray-800">
+                    Rp 1.085.000.000
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
       </section>
 
@@ -219,7 +369,7 @@ export default function UMKMPage() {
                   </div>
                   {place.highlight && (
                     <span className="text-[11px] font-semibold px-2 py-1 rounded-full bg-amber-100 text-amber-700 border border-amber-300">
-                      Highlight Denim
+                      Highlight UMKM
                     </span>
                   )}
                 </div>
@@ -232,52 +382,46 @@ export default function UMKMPage() {
         </div>
       </section>
 
-      {/* Vision & Mission Section */}
-      <section 
-        ref={visionAnim.ref}
-        className={`py-20 px-4 sm:px-6 lg:px-8 ${visionAnim.isVisible ? 'animate-pop-up' : 'opacity-0'}`}
+      {/* Tabel profil UMKM hasil survei */}
+      <section
+        ref={detailAnim.ref}
+        className={`py-20 px-4 sm:px-6 lg:px-8 ${detailAnim.isVisible ? 'animate-pop-up' : 'opacity-0'}`}
       >
         <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-2 gap-8">
-            <div className="bg-white rounded-3xl p-8 shadow-xl border-2 border-amber-200">
-              <div className="w-16 h-16 bg-gradient-to-br from-amber-500 to-orange-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-black text-amber-800 mb-4 text-center">{t('umkm.visi')}</h3>
-              <p className="text-gray-700 leading-relaxed text-center">
-                {t('umkm.visiDesc')}
-              </p>
-            </div>
+          <div className="text-center mb-8">
+            <h2 className="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-amber-700 via-orange-700 to-amber-800 mb-4">
+              {t('umkm.tableTitle')}
+            </h2>
+            <p className="text-sm md:text-base text-gray-700 max-w-3xl mx-auto">
+              {t('umkm.tableSub')}
+            </p>
+          </div>
 
-            <div className="bg-white rounded-3xl p-8 shadow-xl border-2 border-amber-200">
-              <div className="w-16 h-16 bg-gradient-to-br from-orange-500 to-red-600 rounded-full flex items-center justify-center mx-auto mb-6">
-                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4" />
-                </svg>
-              </div>
-              <h3 className="text-2xl font-black text-amber-800 mb-4 text-center">{t('umkm.misi')}</h3>
-              <ul className="text-gray-700 leading-relaxed space-y-2">
-                <li className="flex items-start">
-                  <span className="text-amber-600 mr-2">•</span>
-                  <span>{t('umkm.misi1')}</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-amber-600 mr-2">•</span>
-                  <span>{t('umkm.misi2')}</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-amber-600 mr-2">•</span>
-                  <span>{t('umkm.misi3')}</span>
-                </li>
-                <li className="flex items-start">
-                  <span className="text-amber-600 mr-2">•</span>
-                  <span>{t('umkm.misi4')}</span>
-                </li>
-              </ul>
-            </div>
+          <div className="bg-white rounded-3xl p-4 md:p-6 shadow-2xl border-2 border-amber-200 overflow-x-auto">
+            <table className="min-w-full text-xs md:text-sm border-collapse">
+              <thead className="bg-amber-100">
+                <tr className="text-left text-gray-800">
+                  <th className="px-3 py-2 border border-amber-300 text-center">No.</th>
+                  <th className="px 3 py-2 border border-amber-300">{t('umkm.colNamaUsaha')}</th>
+                  <th className="px-3 py-2 border border-amber-300">{t('umkm.colNamaPemilik')}</th>
+                  <th className="px-3 py-2 border border-amber-300">{t('umkm.colAlamatUsaha')}</th>
+                  <th className="px-3 py-2 border border-amber-300">{t('umkm.colJenisProduk')}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {umkmDetailList.map((item) => (
+                  <tr key={item.no} className="hover:bg-amber-50">
+                    <td className="px-3 py-2 border border-amber-200 text-center font-semibold">
+                      {item.no}
+                    </td>
+                    <td className="px-3 py-2 border border-amber-200">{item.name}</td>
+                    <td className="px-3 py-2 border border-amber-200">{item.owner}</td>
+                    <td className="px-3 py-2 border border-amber-200">{item.address}</td>
+                    <td className="px-3 py-2 border border-amber-200">{item.product}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
         </div>
       </section>

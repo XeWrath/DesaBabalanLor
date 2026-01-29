@@ -56,7 +56,7 @@ export default function AlatTepatGunaPage() {
         </div>
       </section>
 
-      {/* Alat Tepat Guna UMKM Pindang */}
+      {/* Alat Tepat Guna UMKM */}
       <section
         ref={umkmAnim.ref}
         className={`py-20 px-4 sm:px-6 lg:px-8 ${umkmAnim.isVisible ? 'animate-pop-up' : 'opacity-0'}`}
@@ -64,7 +64,7 @@ export default function AlatTepatGunaPage() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-navy-700 via-teal-600 to-gold-600 leading-tight pb-2">
-              Alat Tepat Guna UMKM Pindang
+              Alat Tepat Guna UMKM 
             </h2>
             <div className="w-24 h-1.5 bg-gradient-to-r from-teal-500 to-gold-600 mx-auto" />
           </div>
