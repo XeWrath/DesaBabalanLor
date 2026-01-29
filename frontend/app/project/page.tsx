@@ -11,6 +11,7 @@ export default function ProjectPage() {
   const maggotAnim = useScrollAnimation()
   const processAnim = useScrollAnimation()
   const alatAnim = useScrollAnimation()
+  const panduanAnim = useScrollAnimation()
   const { t } = useLanguage()
 
   return (
@@ -389,6 +390,38 @@ export default function ProjectPage() {
                 className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-base font-bold text-white bg-gradient-to-r from-navy-600 to-teal-600 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
               >
                 <span>Pelajari Detail Alat</span>
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Buku Panduan Ternak Maggot Section */}
+      <section
+        ref={panduanAnim.ref}
+        className={`py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-forest-50 via-white to-sky-50 ${
+          panduanAnim.isVisible ? 'animate-pop-up' : 'opacity-0'
+        }`}
+      >
+        <div className="max-w-6xl mx-auto">
+          <div className="bg-white rounded-3xl p-8 md:px-12 md:py-10 shadow-2xl border-2 border-forest-100 flex flex-col md:flex-row items-center justify-between gap-8">
+            <div className="space-y-4 max-width-2xl">
+              <h2 className="text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-navy-700 via-teal-600 to-gold-600 leading-tight pb-1">
+                {t('project.panduanTitle')}
+              </h2>
+              <p className="text-lg text-gray-700 leading-relaxed">
+                {t('project.panduanDesc')}
+              </p>
+            </div>
+            <div className="flex items-center justify-center">
+              <Link
+                href="/project/buku-panduan-ternak-maggot"
+                className="inline-flex items-center gap-2 px-8 py-4 rounded-full text-base font-bold text-white bg-gradient-to-r from-navy-600 to-teal-600 shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
+              >
+                <span>{t('common.pelajariLebih')}</span>
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                 </svg>

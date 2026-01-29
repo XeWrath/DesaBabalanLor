@@ -219,6 +219,8 @@ const translations: Record<Language, Record<string, string>> = {
     'project.panenDesc': 'Maggot dipanen untuk dijual sebagai pakan ikan',
     'project.pemanfaatan': 'Pemanfaatan Kasgot',
     'project.pemanfaatanDesc': 'Kasgot digunakan sebagai pupuk organik',
+    'project.panduanTitle': 'Buku Panduan Ternak Maggot',
+    'project.panduanDesc': 'Buku panduan ini menjelaskan desain lengkap peternakan maggot Desa Babalan Lor, mulai dari tata letak bangunan, kandang, rak maggot, hingga mesin pengolah dan solar dryer sebagai solusi pengelolaan sampah organik.',
     // Profil KKN Page
     'kkn.hero': 'Profil KKN',
     'kkn.heroSub': 'Tim KKN Desa Babalan Lor - Project Maggot',
@@ -451,6 +453,8 @@ const translations: Record<Language, Record<string, string>> = {
     'project.panenDesc': 'Maggots are harvested to be sold as fish feed',
     'project.pemanfaatan': 'Kasgot Utilization',
     'project.pemanfaatanDesc': 'Kasgot is used as organic fertilizer',
+    'project.panduanTitle': 'Maggot Farming Guidebook',
+    'project.panduanDesc': 'This guidebook explains the complete design of the maggot farm in Babalan Lor Village, from building layout and cages to maggot racks, processing machines, and solar dryer as a solution for organic waste management.',
     // Profil KKN Page
     'kkn.hero': 'KKN Profile',
     'kkn.heroSub': 'Babalan Lor Village KKN Team - Maggot Project',
